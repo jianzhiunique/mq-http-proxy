@@ -1,0 +1,55 @@
+kafka:
+  producer:
+    'bootstrap.servers': '127.0.0.1:9092'
+    'retries': 1
+    'batch.size': 16384
+    'linger.ms': 1
+    'buffer.memory': 33554432
+    'key.serializer': 'org.apache.kafka.common.serialization.StringSerializer'
+    'value.serializer': 'org.apache.kafka.common.serialization.StringSerializer'
+    'enable.idempotence': true
+  consumer:
+    'bootstrap.servers': '127.0.0.1:9092'
+    'enable.auto.commit': false
+    'auto.offset.reset': earliest
+    'max.partition.fetch.bytes': 524288
+    'key.deserializer': 'org.apache.kafka.common.serialization.StringDeserializer'
+    'value.deserializer': 'org.apache.kafka.common.serialization.StringDeserializer'
+    'session.timeout.ms': 6000
+    'heartbeat.interval.ms': 2000
+rabbit:
+  address:
+    host: 127.0.0.1
+    port: 5672
+proxy:
+  config:
+    rabbitmq: false
+    kafka: true
+    maxSendRetry: 2
+    delayPrefix: 'mqp-delay-'
+    delayLevel: '1s 5s 10s 30s 1m 2m 3m 4m 5m 6m 7m 8m 9m 10m 20m 30m 1h 2h'
+    registerInterval: 60
+    preFetchInterval: 2
+    fetchTimeout: 2
+    maxPrefetch: 1000
+    commitStatus: 'mqp-commit-status'
+    fetchCommitTimeout: 2
+zookeeper:
+  config:
+    url: 127.0.0.1:2181
+    sessionTimeout: 5000
+    connectionTimeout: 5000
+    rootPath: '/mq-proxy'
+localdb:
+  config:
+    path: '/tmp/'
+    producer: 'produce.db'
+    name: 'messages'
+logging:
+  path: '/tmp'
+  pattern:
+    console: "%d - %msg%n"
+  level:
+    ROOT: INFO
+
+
